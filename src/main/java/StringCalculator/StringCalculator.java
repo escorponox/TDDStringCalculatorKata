@@ -4,10 +4,10 @@ public class StringCalculator {
 
     public int add(String numbers) {
         if (numbers.length() > 0) {
-            String[] splitted = numbers.split(",");
+            String[] splitted = numbers.split(",|\\n");
             int sum = 0;
-            for (int i = 0; i < splitted.length; i++)
-                sum += Integer.valueOf(splitted[i]);
+            for (String number : splitted)
+                sum += Integer.valueOf(number);
             return sum;
         }
         return 0;

@@ -33,4 +33,16 @@ public class StringCalculatorTest {
         assertEquals(2, stringCalculator.add("1,1"));
         assertEquals(12, stringCalculator.add("10,2"));
     }
+
+    @Test
+    public void givenAnyCommaSepparatedNumbersItReturnsTheSum() throws Exception {
+        assertEquals(15, stringCalculator.add("10,2,3"));
+    }
+    
+    @Test
+    public void handleNewLines() throws Exception {
+        assertEquals(6, stringCalculator.add("1\n2,3"));
+        assertEquals(6, stringCalculator.add("1\n2\n3"));
+        assertEquals(6, stringCalculator.add("1,2\n3"));
+    }
 }
