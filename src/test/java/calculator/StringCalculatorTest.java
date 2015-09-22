@@ -27,4 +27,10 @@ public class StringCalculatorTest {
         assertEquals(2, stringCalculator.add("2"));
         assertEquals(3, stringCalculator.add("3"));
     }
+
+    @Test
+    public void givenOneNumberComaOneNumberItReturnsTheSum() throws Exception {
+        assertEquals(2, stringCalculator.add("1,1"));
+        assertEquals(12, stringCalculator.add("10,2"));
+    }
 }
