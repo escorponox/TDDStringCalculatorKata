@@ -45,4 +45,9 @@ public class StringCalculatorTest {
         assertEquals(6, stringCalculator.add("1\n2\n3"));
         assertEquals(6, stringCalculator.add("1,2\n3"));
     }
+
+    @Test
+    public void customDelimiter() throws Exception {
+        assertEquals(6, stringCalculator.add("//;\n1;2;3"));
+    }
 }

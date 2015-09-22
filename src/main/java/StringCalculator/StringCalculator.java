@@ -2,14 +2,35 @@ package StringCalculator;
 
 public class StringCalculator {
 
-    public int add(String numbers) {
-        if (numbers.length() > 0) {
-            String[] splitted = numbers.split(",|\\n");
-            int sum = 0;
-            for (String number : splitted)
-                sum += Integer.valueOf(number);
-            return sum;
+    public int add(String input) {
+        if (input.isEmpty()) {
+            return 0;
         }
-        return 0;
+        String[] numbers;
+        if (hasCustomDelimiter(input))
+            numbers = extractCustomSepparatedNumbers(input);
+        else
+            numbers = extractStandardSepparatedNumbers(input);
+        return addNumbers(numbers);
+    }
+
+    private int addNumbers(String[] numbers) {
+        int sum = 0;
+        for (String number : numbers)
+            sum += Integer.valueOf(number);
+        return sum;
+    }
+
+    private String[] extractStandardSepparatedNumbers(String input) {
+        return input.split(",|\\n");
+    }
+
+    private String[] extractCustomSepparatedNumbers(String input) {
+        String delimiter = input.substring(2, 3);
+        return input.substring(4).split(delimiter);
+    }
+
+    private boolean hasCustomDelimiter(String input) {
+        return input.matches("^//\\W\\n.*");
     }
 }
