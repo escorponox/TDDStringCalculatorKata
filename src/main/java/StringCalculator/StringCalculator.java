@@ -3,15 +3,19 @@ package StringCalculator;
 public class StringCalculator {
 
     public int add(String input) {
-        if (input.isEmpty()) {
+        if (input.isEmpty())
             return 0;
-        }
+        String[] numbers = extractNumbers(input);
+        return addNumbers(numbers);
+    }
+
+    private String[] extractNumbers(String input) {
         String[] numbers;
         if (hasCustomDelimiter(input))
             numbers = extractCustomSepparatedNumbers(input);
         else
             numbers = extractStandardSepparatedNumbers(input);
-        return addNumbers(numbers);
+        return numbers;
     }
 
     private int addNumbers(String[] numbers) {
