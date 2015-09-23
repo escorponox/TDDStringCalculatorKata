@@ -27,9 +27,12 @@ public class StringCalculator {
     }
 
     private int addNumbers(String[] numbers) {
-        int sum = 0;
-        for (String number : numbers)
-            sum += Integer.valueOf(number);
+        int sum = 0, number;
+        for (String numberString : numbers) {
+            number = Integer.valueOf(numberString);
+            if (number <= 1000)
+                sum += number;
+        }
         return sum;
     }
 }

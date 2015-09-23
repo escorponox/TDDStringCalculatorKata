@@ -65,4 +65,9 @@ public class StringCalculatorTest {
         thrown.expectMessage("negatives not allowed: [-2, -3]");
         stringCalculator.add("//;\n1;-2;-3");
     }
+
+    @Test
+    public void ignoreBiggerThanThousand() throws Exception {
+        assertEquals(6, stringCalculator.add("//;\n1;2;3;1001"));
+    }
 }
