@@ -1,9 +1,9 @@
 package calculator;
 
-import StringCalculator.StringCalculator;
-import junit.framework.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static junit.framework.Assert.*;
 
@@ -49,5 +49,20 @@ public class StringCalculatorTest {
     @Test
     public void customDelimiter() throws Exception {
         assertEquals(6, stringCalculator.add("//;\n1;2;3"));
+    }
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void negativeNumbersThrowNegativeNumberException() throws Exception {
+
+        thrown.expect(NegativeNumberException.class);
+        thrown.expectMessage("negatives not allowed: [-3]");
+        stringCalculator.add("//;\n1;2;-3");
+
+        thrown.expect(NegativeNumberException.class);
+        thrown.expectMessage("negatives not allowed: [-2, -3]");
+        stringCalculator.add("//;\n1;-2;-3");
     }
 }
