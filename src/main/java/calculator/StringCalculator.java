@@ -1,24 +1,33 @@
 package calculator;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class StringCalculator {
 
+    public static final int MAX_VALUE = 1000;
     private final NumberExtractor numberExtractor = new NumberExtractor();
 
     public int add(String input) throws NegativeNumberException {
-        if (input.isEmpty())
+        if (input == null || input.isEmpty())
             return 0;
-        String[] numbers = numberExtractor.extract(input);
+        List<Integer> numbers = numberExtractor.extract(input);
         checkNegatives(numbers);
+        numbers = filterBiggerThanLimit(numbers);
         return addNumbers(numbers);
     }
 
-    private void checkNegatives(String[] numbers) throws NegativeNumberException {
-        List<Integer> negativeNumbers = new ArrayList<Integer>();
-        for (String numberString : numbers) {
-            Integer number = Integer.valueOf(numberString);
+    private List<Integer> filterBiggerThanLimit(List<Integer> numbers) {
+        List<Integer> filteredNumbers = new LinkedList<>();
+        for (Integer number : numbers)
+            if (number <= MAX_VALUE)
+                filteredNumbers.add(number);
+        return filteredNumbers;
+    }
+
+    private void checkNegatives(List<Integer> numbers) throws NegativeNumberException {
+        List<Integer> negativeNumbers = new LinkedList<>();
+        for (Integer number : numbers) {
             if (number < 0)
                 negativeNumbers.add(number);
         }
@@ -26,13 +35,10 @@ public class StringCalculator {
             throw new NegativeNumberException(negativeNumbers.toString());
     }
 
-    private int addNumbers(String[] numbers) {
-        int sum = 0, number;
-        for (String numberString : numbers) {
-            number = Integer.valueOf(numberString);
-            if (number <= 1000)
-                sum += number;
-        }
+    private int addNumbers(List<Integer> numbers) {
+        int sum = 0;
+        for (Integer number : numbers)
+            sum += number;
         return sum;
     }
 }

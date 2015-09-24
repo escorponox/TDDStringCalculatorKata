@@ -61,13 +61,23 @@ public class StringCalculatorTest {
         thrown.expectMessage("negatives not allowed: [-3]");
         stringCalculator.add("//;\n1;2;-3");
 
-        thrown.expect(NegativeNumberException.class);
         thrown.expectMessage("negatives not allowed: [-2, -3]");
         stringCalculator.add("//;\n1;-2;-3");
     }
 
     @Test
-    public void ignoreBiggerThanThousand() throws Exception {
+    public void ignoreBiggerThanBiggerThanLimit() throws Exception {
         assertEquals(6, stringCalculator.add("//;\n1;2;3;1001"));
     }
+
+    @Test
+    public void anyLenghtDelimiter() throws Exception {
+        assertEquals(6, stringCalculator.add("//[***]\\n1***2***3"));
+    }
+    @Test
+    public void multipleDelimiter() throws Exception {
+        assertEquals(6, stringCalculator.add("//[*][%]\\n1*2%3"));
+        assertEquals(6, stringCalculator.add("//[**][%%]\\n1**2%%3"));
+    }
+
 }
